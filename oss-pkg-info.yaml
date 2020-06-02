@@ -1,0 +1,4 @@
+Open Source Software Package:
+- name: webOSOSE-pmlogctl
+  source: https://github.com/webosose/pmlogctl
+  license: Apache-2.0
