@@ -247,7 +247,11 @@ static PmLogErr PrvGetContextList(ContextsInfo_t *contextInfosP,
 
 	for (i = 0; i < n; i++)
 	{
-		contextInfoP = &contextInfosP->contextInfos[ contextInfosP->numContexts ];
+		if (contextInfosP->numContexts >=0 && contextInfosP->numContexts < PMLOG_MAX_NUM_CONTEXTS + 1) { // coverity
+			contextInfoP = &contextInfosP->contextInfos[ contextInfosP->numContexts ];
+		} else {
+			return kPmLogErr_Unknown;
+		}
 
 		contextInfoP->context = NULL;
 		logErr = PmLogGetIndContext(i, &contextInfoP->context);

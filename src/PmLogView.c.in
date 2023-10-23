@@ -1228,7 +1228,7 @@ static void DoView2(const ViewConfig_t *configP, const ViewFormat_t *formatP,
 
 	for (iLogFile = 0; iLogFile < PMLOGVIEW_MAX_LOG_FILES; iLogFile++)
 	{
-		free(parsedMsgs[ theLogFile ]);
+		free(parsedMsgs[ iLogFile ]);
 	}
 }
 
@@ -1328,7 +1328,9 @@ static bool PrvReadLogFileInfo(ViewConfig_t *configP)
 			break;
 		}
 
-		configP->logFilePaths[ configP->numLogs ] = strdup(line + linePrefixLen);
+		if ( configP->numLogs >= 0) { //coverity
+			configP->logFilePaths[ configP->numLogs ] = strdup(line + linePrefixLen);
+		}
 
 		configP->numLogs++;
 	}
