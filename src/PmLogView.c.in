@@ -1206,7 +1206,11 @@ static void DoView2(const ViewConfig_t *configP, const ViewFormat_t *formatP,
 		}
 
 		FormatView(buff, sizeof(buff), formatP, theParsedMsgP);
-		fprintf(output, "%s\n", buff);
+		if (fprintf(output, "%s\n", buff) < 0) {
+			int err;
+			err = errno;
+			ErrPrint("Error fprint output: %s\n", strerror(err));
+		}
 
 		/* advance the file */
 		viewLogP = &viewLogs.viewLogs[ theLogFile ];
