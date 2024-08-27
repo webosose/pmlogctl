@@ -76,7 +76,7 @@ void mystrcpy(char *dst, size_t dstSize, const char *src)
 		srcLen = dstSize - 1;
 	}
 
-	memcpy(dst, src, srcLen);
+	strncpy(dst, src, srcLen); // from memcpy due to coverity
 	dst[ srcLen ] = 0;
 }
 
